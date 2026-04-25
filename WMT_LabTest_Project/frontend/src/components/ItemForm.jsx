@@ -21,10 +21,12 @@ function ItemForm({ initialValues, onSubmit, submitText }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const numericDiscount = Number(formData.discountPercentage);
+
     onSubmit({
       ...formData,
       price: Number(formData.price),
-      discountPercentage: Number(formData.discountPercentage || 0),
+      discountPercentage: Number.isFinite(numericDiscount) ? numericDiscount : 0,
     });
   };
 

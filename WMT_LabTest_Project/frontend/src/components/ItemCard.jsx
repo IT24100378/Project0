@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 const formatDiscountPercentage = (discountPercentage) => {
   const numericDiscount = Number(discountPercentage);
-  if (!Number.isFinite(numericDiscount)) return discountPercentage;
-  if (Number.isInteger(numericDiscount)) return numericDiscount;
+  if (!Number.isFinite(numericDiscount)) return String(discountPercentage ?? "");
+  if (Number.isInteger(numericDiscount)) return String(numericDiscount);
   return numericDiscount.toFixed(2);
 };
 
