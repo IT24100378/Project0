@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 
+const formatDiscountPercentage = (discountPercentage) => {
+  const numericDiscount = Number(discountPercentage);
+  if (!Number.isFinite(numericDiscount)) return discountPercentage;
+  if (Number.isInteger(numericDiscount)) return numericDiscount;
+  return numericDiscount.toFixed(2);
+};
+
 function ItemCard({ item, onDelete }) {
-  const numericDiscount = Number(item.discountPercentage);
-  const formattedDiscount = Number.isFinite(numericDiscount)
-    ? Number.isInteger(numericDiscount)
-      ? numericDiscount
-      : numericDiscount.toFixed(2)
-    : item.discountPercentage;
+  const formattedDiscount = formatDiscountPercentage(item.discountPercentage);
 
   return (
     <div className="card">

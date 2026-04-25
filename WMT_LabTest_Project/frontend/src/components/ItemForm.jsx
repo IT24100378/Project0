@@ -5,7 +5,7 @@ function ItemForm({ initialValues, onSubmit, submitText }) {
     name: "",
     category: "",
     price: "",
-    discountPercentage: "",
+    discountPercentage: "0",
     description: "",
     imageUrl: "",
   };
@@ -24,7 +24,7 @@ function ItemForm({ initialValues, onSubmit, submitText }) {
     onSubmit({
       ...formData,
       price: Number(formData.price),
-      discountPercentage: Number(formData.discountPercentage),
+      discountPercentage: Number(formData.discountPercentage || 0),
     });
   };
 
@@ -56,7 +56,6 @@ function ItemForm({ initialValues, onSubmit, submitText }) {
         min="0"
         max="100"
         step="0.01"
-        required
       />
 
       <label>Description</label>
