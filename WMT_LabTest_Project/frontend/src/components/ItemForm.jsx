@@ -1,14 +1,26 @@
 import { useState } from "react";
 
 function ItemForm({ initialValues, onSubmit, submitText }) {
+  const defaultValues = {
+    name: "",
+    category: "",
+    price: "",
+    discountPercentage: "0",
+    description: "",
+    imageUrl: "",
+  };
+
+  const initialFormValues = initialValues
+    ? {
+        ...defaultValues,
+        ...initialValues,
+        discountPercentage:
+          initialValues.discountPercentage ?? defaultValues.discountPercentage,
+      }
+    : defaultValues;
+
   const [formData, setFormData] = useState(
-    initialValues || {
-      name: "",
-      category: "",
-      price: "",
-      description: "",
-      imageUrl: "",
-    }
+    initialFormValues
   );
 
   const handleChange = (e) => {
@@ -18,9 +30,13 @@ function ItemForm({ initialValues, onSubmit, submitText }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const numericPrice = Number(formData.price);
+    const numericDiscount = Number(formData.discountPercentage);
+
     onSubmit({
       ...formData,
-      price: Number(formData.price),
+      price: Number.isFinite(numericPrice) ? numericPrice : 0,
+      discountPercentage: Number.isFinite(numericDiscount) ? numericDiscount : 0,
     });
   };
 
@@ -41,6 +57,17 @@ function ItemForm({ initialValues, onSubmit, submitText }) {
         value={formData.price}
         onChange={handleChange}
         required
+      />
+
+      <label>Discount Percentage</label>
+      <input
+        type="number"
+        name="discountPercentage"
+        value={formData.discountPercentage}
+        onChange={handleChange}
+        min="0"
+        max="100"
+        step="0.01"
       />
 
       <label>Description</label>
