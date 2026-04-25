@@ -10,8 +10,17 @@ function ItemForm({ initialValues, onSubmit, submitText }) {
     imageUrl: "",
   };
 
+  const initialFormValues = initialValues
+    ? {
+        ...defaultValues,
+        ...initialValues,
+        discountPercentage:
+          initialValues.discountPercentage ?? defaultValues.discountPercentage,
+      }
+    : defaultValues;
+
   const [formData, setFormData] = useState(
-    initialValues ? { ...defaultValues, ...initialValues } : defaultValues
+    initialFormValues
   );
 
   const handleChange = (e) => {
